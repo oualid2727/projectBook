@@ -13,6 +13,7 @@ public class MyApplication extends Application {
         super.onCreate();
         database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "projectbook_database")
                 .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
                 .build();
     }
 

@@ -1,5 +1,5 @@
 package com.example.projetbook.model.dao;
-
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -22,7 +22,7 @@ public interface CategorieDao {
     void delete(Categorie categorie);
 
     @Query("SELECT * FROM categories")
-    List<Categorie> getAllCategories();
+    LiveData< List<Categorie>> getAllCategories();
 
     @Query("SELECT * FROM categories WHERE nom LIKE :nom")
     List<Categorie> searchCategorieByName(String nom);

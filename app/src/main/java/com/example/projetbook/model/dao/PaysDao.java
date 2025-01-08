@@ -1,5 +1,6 @@
 package com.example.projetbook.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -22,7 +23,7 @@ public interface PaysDao {
     void delete(Pays pays);
 
     @Query("SELECT * FROM pays")
-    List<Pays> getAllPays();
+    LiveData<List<Pays>> getAllPays();
 
     @Query("SELECT * FROM pays WHERE nom LIKE :nom")
     List<Pays> searchPaysByName(String nom);

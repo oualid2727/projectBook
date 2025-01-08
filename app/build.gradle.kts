@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+
 }
 
 android {
@@ -49,8 +50,8 @@ dependencies {
     // No additional plugins are necessary
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 
     // optional - RxJava2 support for Room
     implementation("androidx.room:room-rxjava2:$room_version")

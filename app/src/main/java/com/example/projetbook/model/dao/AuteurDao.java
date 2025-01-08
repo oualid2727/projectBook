@@ -1,5 +1,5 @@
 package com.example.projetbook.model.dao;
-
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -22,7 +22,7 @@ public interface AuteurDao {
     void delete(Auteur auteur);
 
     @Query("SELECT * FROM auteurs")
-    List<Auteur> getAllAuteurs();
+    LiveData< List<Auteur>> getAllAuteurs();
 
     @Query("SELECT * FROM auteurs WHERE nom LIKE :nom")
     List<Auteur> searchAuteurByName(String nom);
