@@ -16,6 +16,9 @@ public interface PaysDao {
     @Insert
     void insert(Pays pays);
 
+    @Query("SELECT * FROM pays WHERE id = :id")
+    LiveData<Pays> getPaysById(int id);
+
     @Update
     void update(Pays pays);
 

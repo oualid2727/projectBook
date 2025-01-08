@@ -16,6 +16,7 @@
         android:theme="@style/Theme.ProjetBook"
         tools:targetApi="31">
         <activity android:name=".Add.AddPaysActivity" />
+        <activity android:name=".Update.EditPaysActivity" />
 
         <activity
             android:name=".MainActivity"
