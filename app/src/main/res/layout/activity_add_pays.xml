@@ -12,15 +12,22 @@
         android:layout_height="wrap_content"
         android:hint="Nom du pays"/>
 
-    <EditText
-        android:id="@+id/editTextDrapeau"
+    <ImageView
+        android:id="@+id/imageViewFlag"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:contentDescription="Flag" />
+
+    <Button
+        android:id="@+id/buttonSelectImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Drapeau (URL ou chemin)"/>
+        android:text="Select Flag Image" />
 
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sauvegarder"/>
+        android:text="Save" />
 </LinearLayout>

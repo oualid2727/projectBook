@@ -68,6 +68,11 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
 
+    implementation ("androidx.activity:activity-ktx:1.5.1")
+    implementation ("androidx.fragment:fragment-ktx:1.5.1")
+
+    implementation ("com.google.android.material:material:1.8.0")
+
 }
 
 
