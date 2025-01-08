@@ -15,6 +15,8 @@ public interface CategorieDao {
     @Insert
     void insert(Categorie categorie);
 
+    @Query("SELECT * FROM categories WHERE id = :id")
+    LiveData<Categorie> getCategorieById(int id);
     @Update
     void update(Categorie categorie);
 

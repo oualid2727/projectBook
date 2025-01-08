@@ -1,4 +1,4 @@
-package com.example.projetbook.Add;
+package com.example.projetbook.Update;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,15 +11,18 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.example.projetbook.MyApplication;
 import com.example.projetbook.R;
 import com.example.projetbook.model.entity.Categorie;
 
-public class AddCategorieActivity extends AppCompatActivity {
+public class EditCategorieActivity extends AppCompatActivity {
     private EditText editTextNom;
     private ImageView imageViewImage;
     private Uri imageUri;
+    private int categorieId;
+    private Categorie currentCategorie;
 
     private final ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -33,26 +36,34 @@ public class AddCategorieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_categorie);
+        setContentView(R.layout.activity_edit_categorie);
 
         editTextNom = findViewById(R.id.editTextNom);
         imageViewImage = findViewById(R.id.imageViewImage);
         Button buttonSelectImage = findViewById(R.id.buttonSelectImage);
         Button buttonSave = findViewById(R.id.buttonSave);
 
-        buttonSelectImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        categorieId = getIntent().getIntExtra("categorie_id", -1);
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveCategorie();
-            }
-        });
+        if (categorieId != -1) {
+            MyApplication.getDatabase().categorieDao().getCategorieById(categorieId).observe(this, new Observer<Categorie>() {
+                @Override
+                public void onChanged(Categorie categorie) {
+                    currentCategorie = categorie;
+                    if (categorie != null) {
+                        editTextNom.setText(categorie.nom);
+                        if (categorie.image != null) {
+                            imageUri = Uri.parse(categorie.image);
+                            imageViewImage.setImageURI(imageUri);
+                        }
+                    }
+                }
+            });
+        }
+
+        buttonSelectImage.setOnClickListener(v -> openGallery());
+
+        buttonSave.setOnClickListener(v -> saveCategorie());
     }
 
     private void openGallery() {
@@ -61,15 +72,12 @@ public class AddCategorieActivity extends AppCompatActivity {
     }
 
     private void saveCategorie() {
-        String nom = editTextNom.getText().toString();
-        String imageUriString = imageUri != null ? imageUri.toString() : null;
+        if (currentCategorie != null) {
+            currentCategorie.nom = editTextNom.getText().toString();
+            currentCategorie.image = imageUri != null ? imageUri.toString() : currentCategorie.image;
 
-        Categorie categorie = new Categorie();
-        categorie.nom = nom;
-        categorie.image = imageUriString;
-
-        MyApplication.getDatabase().categorieDao().insert(categorie);
-        finish(); // Close activity after saving
+            MyApplication.getDatabase().categorieDao().update(currentCategorie);
+            finish(); // Close activity after saving
+        }
     }
 }
-
