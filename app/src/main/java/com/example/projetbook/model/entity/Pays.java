@@ -9,4 +9,10 @@ public class Pays {
     public int id;         // Unique ID for each country
     public String nom;     // Name of the country
     public String drapeau; // Path or URL for the flag image
+
+    @Override
+    public String toString() {
+        return nom;
+    }
+
 }

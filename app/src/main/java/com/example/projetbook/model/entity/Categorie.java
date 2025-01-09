@@ -9,4 +9,9 @@ public class Categorie {
     public int id;         // Unique ID for each category
     public String nom;     // Name of the category
     public String image;   // Path or URL for the category image
+
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

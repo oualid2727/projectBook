@@ -9,4 +9,9 @@ public class Auteur {
     public int id;
     public String nom;
     public String date;
+
+    @Override
+    public String toString() {
+        return nom;
+    }
 }
