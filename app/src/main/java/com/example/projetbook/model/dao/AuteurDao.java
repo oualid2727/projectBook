@@ -15,6 +15,8 @@ public interface AuteurDao {
     @Insert
     void insert(Auteur auteur);
 
+    @Query("SELECT * FROM auteurs WHERE id = :id")
+    LiveData<Auteur> getAuteurById(int id);
     @Update
     void update(Auteur auteur);
 
