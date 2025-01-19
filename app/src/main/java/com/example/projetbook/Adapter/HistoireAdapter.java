@@ -1,7 +1,9 @@
 package com.example.projetbook.Adapter;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projetbook.MyApplication;
 import com.example.projetbook.R;
+import com.example.projetbook.Update.EditHistoireActivity;
 import com.example.projetbook.model.entity.Auteur;
 import com.example.projetbook.model.entity.Categorie;
 import com.example.projetbook.model.entity.Histoire;
@@ -81,6 +84,23 @@ public class HistoireAdapter extends RecyclerView.Adapter<HistoireAdapter.Histoi
             }
         });
 
+        holder.edit.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditHistoireActivity.class);
+            intent.putExtra("histoire_id", histoire.id);
+            context.startActivity(intent);
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Histoire")
+                    .setMessage("Are you sure you want to delete this histoire?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        MyApplication.getDatabase().histoireDao().delete(histoire);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
         holder.itemView.setOnClickListener(v -> showHistoireDetailsDialog(histoire));
     }
 
@@ -108,7 +128,7 @@ public class HistoireAdapter extends RecyclerView.Adapter<HistoireAdapter.Histoi
 
      public static class HistoireViewHolder extends RecyclerView.ViewHolder {
         TextView titre, date, auteur,pays, categorie;
-        ImageView image;
+        ImageView image,edit, delete;
 
         public HistoireViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +138,8 @@ public class HistoireAdapter extends RecyclerView.Adapter<HistoireAdapter.Histoi
             image = itemView.findViewById(R.id.imageViewHistoire);
             pays = itemView.findViewById(R.id.textViewPays);
             categorie = itemView.findViewById(R.id.textViewCategorie);
+            edit = itemView.findViewById(R.id.imageViewEdit);
+            delete = itemView.findViewById(R.id.imageViewDelete);
         }
     }
 }

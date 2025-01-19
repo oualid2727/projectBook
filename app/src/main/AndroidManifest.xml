@@ -22,7 +22,7 @@
         <activity android:name=".Add.AddAuteurActivity" />
         <activity android:name=".Update.EditAuteurActivity" />
         <activity android:name=".Add.AddHistoireActivity" />
-
+        <activity android:name=".Update.EditHistoireActivity" />
 
         <activity
             android:name=".MainActivity"

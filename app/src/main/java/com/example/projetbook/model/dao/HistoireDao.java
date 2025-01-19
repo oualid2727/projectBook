@@ -24,6 +24,9 @@ public interface HistoireDao {
     @Query("SELECT * FROM histoires")
     LiveData<List<Histoire>> getAllHistoires();
 
+    @Query("SELECT * FROM histoires WHERE id = :id")
+    LiveData<Histoire> getHistoireById(int id);
+
     @Query("SELECT * FROM histoires WHERE titre LIKE :titre")
     List<Histoire> searchByTitre(String titre);
 }
